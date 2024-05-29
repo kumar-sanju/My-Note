@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371382856688",
+    "project_id": "my-note-a368d",
+    "storage_bucket": "my-note-a368d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371382856688:android:bb1230b4eaded5b2eb0b35",
+        "android_client_info": {
+          "package_name": "com.smart.mynote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeBFkFmUz3-XPkrBgEu_pX3pPXhBSmbgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
