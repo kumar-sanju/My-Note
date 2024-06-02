@@ -1,10 +1,11 @@
 package com.smart.mynote;
 public class DataClass {
-    private String dataTitle;
-    private String dataDesc;
-    private String dataLang;
-    private String dataImage;
-    private String key;
+    private String dataTitle = "";
+    private String dataDesc = "";
+    private String dataLang = "";
+    private String dataImage = "";
+    private String key = "";
+
     public String getKey() {
         return key;
     }
@@ -23,12 +24,14 @@ public class DataClass {
     public String getDataImage() {
         return dataImage;
     }
+
     public DataClass(String dataTitle, String dataDesc, String dataLang, String dataImage) {
         this.dataTitle = dataTitle;
         this.dataDesc = dataDesc;
         this.dataLang = dataLang;
         this.dataImage = dataImage;
     }
+
     public DataClass(){
     }
 }

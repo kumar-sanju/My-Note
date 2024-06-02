@@ -17,21 +17,31 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
     private Context context;
     private List<DataClass> dataList;
+
     public MyAdapter(Context context, List<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
         return new MyViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Glide.with(context).load(dataList.get(position).getDataImage()).into(holder.recImage);
+
+        if (dataList.get(position).getDataImage().isEmpty())
+            holder.recImage.setBackground(context.getResources().getDrawable(R.drawable.camera));
+        else
+            Glide.with(context).load(dataList.get(position).getDataImage()).into(holder.recImage);
+
+//        Glide.with(context).load(dataList.get(position).getDataImage()).into(holder.recImage);
         holder.recTitle.setText(dataList.get(position).getDataTitle());
         holder.recDesc.setText(dataList.get(position).getDataDesc());
         holder.recLang.setText(dataList.get(position).getDataLang());
@@ -48,10 +58,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return dataList.size();
     }
+
     public void searchDataList(ArrayList<DataClass> searchList){
         dataList = searchList;
         notifyDataSetChanged();

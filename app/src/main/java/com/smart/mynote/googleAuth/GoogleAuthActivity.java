@@ -1,9 +1,12 @@
 package com.smart.mynote.googleAuth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,30 +39,24 @@ import java.util.HashMap;
 public class GoogleAuthActivity extends AppCompatActivity {
 
     Button googleAuth;
+    ImageView googlegif;
     FirebaseAuth auth;
     FirebaseDatabase database;
     GoogleSignInClient googleSignInClient;
     int RC_SIGN_IN = 20;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user = auth.getCurrentUser();
-        if(user!=null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_auth);
 
-        googleAuth = findViewById(R.id.button);
+        googleAuth = findViewById(R.id.startButton);
+        googlegif = findViewById(R.id.googlegif);
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        Glide.with(getApplicationContext()).asGif().load(R.raw.googlegif).into(googlegif);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_ids))
@@ -113,6 +111,7 @@ public class GoogleAuthActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(GoogleAuthActivity.this,MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
 
                         else {

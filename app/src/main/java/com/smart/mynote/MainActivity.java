@@ -24,6 +24,7 @@ import com.smart.mynote.googleAuth.GoogleAuthActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab, fabLogout;
@@ -33,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     List<DataClass> dataList;
     MyAdapter adapter;
     SearchView searchView;
-    FirebaseUser user;
-    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
         fabLogout = findViewById(R.id.fabLogout);
         searchView = findViewById(R.id.search);
 
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        Log.d("sanju", "onCreate: "+ user.getUid());
+        Log.d("sanju", "onCreate: "+ Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
 
         searchView.clearFocus();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
@@ -62,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
         dataList = new ArrayList<>();
         adapter = new MyAdapter(MainActivity.this, dataList);
         recyclerView.setAdapter(adapter);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+//        databaseReference = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Android Tutorials");
+        databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("Android Tutorials");
 
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
