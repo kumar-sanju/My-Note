@@ -8,19 +8,30 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:id="@+id/search"
+        android:layout_margin="12dp"
         app:iconifiedByDefault="false"
         app:searchHintIcon="@null"
         app:queryHint="Search..."
         android:focusable="false"
+        android:layout_toLeftOf="@+id/fabLogout"
         app:closeIcon="@drawable/clear"
         app:searchIcon="@drawable/searchone"
         android:background="@drawable/lavender_border"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/lavender"
+        app:tint="@color/white"
+        android:src="@drawable/logout" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
         android:layout_below="@id/search"
