@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.activity)
     val kotlinVersion = "1.8.22"
 
     implementation("androidx.core:core-ktx:1.7.0")
