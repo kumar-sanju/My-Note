@@ -5,22 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".onBoard.NavigationActivity">
-    <Button
+
+    <ImageView
         android:id="@+id/skipButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:cornerRadius = "15dp"
         android:padding="8dp"
-        android:drawableRight="@drawable/skip"
+        android:src="@drawable/skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slideViewPager"
         android:layout_width="match_parent"
