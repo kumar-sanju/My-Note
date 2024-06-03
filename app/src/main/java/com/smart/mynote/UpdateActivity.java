@@ -1,5 +1,6 @@
 package com.smart.mynote;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -40,6 +41,7 @@ public class UpdateActivity extends AppCompatActivity {
     Uri uri;
     DatabaseReference databaseReference;
     StorageReference storageReference;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
