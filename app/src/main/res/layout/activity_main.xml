@@ -20,7 +20,8 @@
         android:layout_toLeftOf="@+id/fabLogout"
         app:closeIcon="@drawable/clear"
         app:searchIcon="@drawable/searchone"
-        android:background="@drawable/lavender_border"/>
+        android:background="@drawable/lavender_border"
+        android:backgroundTint="@color/teal_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabLogout"
@@ -29,9 +30,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/lavender"
+        android:backgroundTint="@color/purple_200"
         app:tint="@color/white"
-        android:src="@drawable/logout" />
+        android:src="@drawable/logout"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
