@@ -43,28 +43,19 @@
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
+                android:maxLines="1"
                 android:hint="Enter topic name"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="200dp"
                 android:id="@+id/uploadDesc"
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
                 android:hint="Enter description"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/uploadLang"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Enter language"
-                android:gravity="start|center_vertical"
+                android:gravity="start"
                 android:textColor="@color/lavender"/>
 
             <Button

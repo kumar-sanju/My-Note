@@ -29,12 +29,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class UploadActivity extends AppCompatActivity {
     ImageView uploadImage;
     Button saveButton;
-    EditText uploadTopic, uploadDesc, uploadLang;
+    EditText uploadTopic, uploadDesc;
     String imageURL = "";
     Uri uri;
     AlertDialog dialog;
@@ -47,7 +50,6 @@ public class UploadActivity extends AppCompatActivity {
         uploadImage = findViewById(R.id.uploadImage);
         uploadDesc = findViewById(R.id.uploadDesc);
         uploadTopic = findViewById(R.id.uploadTopic);
-        uploadLang = findViewById(R.id.uploadLang);
         saveButton = findViewById(R.id.saveButton);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UploadActivity.this);
@@ -130,15 +132,14 @@ public class UploadActivity extends AppCompatActivity {
         else
             desc = uploadTopic.getText().toString();
 
-        if (uploadLang.getText().toString().isEmpty())
-            lang = "";
-        else
-            lang = uploadLang.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Set the desired time zone
+        String dateTime = dateFormat.format(new Date());
 
 //        String title = uploadTopic.getText().toString();
 //        String desc = uploadDesc.getText().toString();
 //        String lang = uploadLang.getText().toString();
-        DataClass dataClass = new DataClass(title, desc, lang, imageURL);
+        DataClass dataClass = new DataClass(title, desc, dateTime, imageURL);
         //We are changing the child from title to currentDate,
         // because we will be updating title as well and it may affect child value.
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());

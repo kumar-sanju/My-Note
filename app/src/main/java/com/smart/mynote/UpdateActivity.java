@@ -30,10 +30,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class UpdateActivity extends AppCompatActivity {
     ImageView updateImage;
     Button updateButton;
-    EditText updateDesc, updateTitle, updateLang;
+    EditText updateDesc, updateTitle;
     String title, desc, lang;
     String imageUrl;
     String key, oldImageURL;
@@ -48,7 +52,6 @@ public class UpdateActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.updateButton);
         updateDesc = findViewById(R.id.updateDesc);
         updateImage = findViewById(R.id.updateImage);
-        updateLang = findViewById(R.id.updateLang);
         updateTitle = findViewById(R.id.updateTitle);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -70,7 +73,6 @@ public class UpdateActivity extends AppCompatActivity {
         if (bundle != null){
             updateTitle.setText(bundle.getString("Title"));
             updateDesc.setText(bundle.getString("Description"));
-            updateLang.setText(bundle.getString("Language"));
             key = bundle.getString("Key");
             oldImageURL = bundle.getString("Image");
 
@@ -129,8 +131,11 @@ public class UpdateActivity extends AppCompatActivity {
     public void updateData(){
         title = updateTitle.getText().toString().trim();
         desc = updateDesc.getText().toString().trim();
-        lang = updateLang.getText().toString();
-        DataClass dataClass = new DataClass(title, desc, lang, imageUrl);
+//        lang = updateLang.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Set the desired time zone
+        String dateTime = dateFormat.format(new Date());
+        DataClass dataClass = new DataClass(title, desc, dateTime, imageUrl);
         databaseReference.setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
