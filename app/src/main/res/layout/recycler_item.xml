@@ -22,51 +22,52 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="30dp"
-            android:id="@+id/recTitle"
-            android:text="Title"
-            android:textColor="@color/lavender"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/recImage"/>
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:id="@+id/recPriority"
-            android:text="priority"
-            android:layout_toEndOf="@id/recTitle"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="90dp"
-            android:textAlignment="center"
-            android:textColor="@color/lavender"
-            android:textSize="16sp"/>
-        <TextView
-            android:layout_width="140dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recDesc"
-            android:text="desc"
-            android:textColor="@color/lavender"
-            android:textSize="14sp"
+            android:orientation="vertical"
             android:layout_toEndOf="@id/recImage"
-            android:layout_below="@id/recTitle"
-            android:layout_marginStart="20dp"
-            android:maxLines="1"
-            android:layout_marginBottom="12dp"/>
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/recLang"
-            android:text="Language"
-            android:textColor="@color/lavender"
-            android:textSize="14sp"
-            android:layout_toEndOf="@id/recImage"
-            android:layout_below="@id/recTitle"
-            android:layout_marginStart="20dp"
-            android:maxLines="1"
-            android:layout_marginBottom="12dp"/>
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recTitle"
+                android:text="Title"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recLang"
+                android:text="Date Time"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/red"
+                android:textSize="10sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recDesc"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="16sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="12dp"/>
+        </LinearLayout>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -38,21 +38,21 @@
                 android:scaleType="fitXY"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/uploadTopic"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="16dp"
                 android:maxLines="1"
                 android:hint="Enter topic name"
-                android:gravity="start|center_vertical"
+                android:gravity="start"
                 android:textColor="@color/lavender"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/uploadDesc"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="16dp"
                 android:hint="Enter description"
                 android:gravity="start"
@@ -64,8 +64,8 @@
                 android:text="Save"
                 android:id="@+id/saveButton"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                app:cornerRadius = "20dp"/>
+                android:layout_marginTop="10dp"
+                app:cornerRadius = "10dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </ScrollView>
