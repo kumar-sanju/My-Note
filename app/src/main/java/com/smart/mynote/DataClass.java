@@ -32,6 +32,14 @@ public class DataClass {
         this.dataImage = dataImage;
     }
 
+    public DataClass(String dataTitle, String dataDesc, String dataLang, String dataImage, String key) {
+        this.dataTitle = dataTitle;
+        this.dataDesc = dataDesc;
+        this.dataLang = dataLang;
+        this.dataImage = dataImage;
+        this.key = key;
+    }
+
     public DataClass(){
     }
 }
