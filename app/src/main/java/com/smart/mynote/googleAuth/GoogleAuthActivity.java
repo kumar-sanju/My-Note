@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,11 +31,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smart.mynote.MainActivity;
 import com.smart.mynote.R;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class GoogleAuthActivity extends AppCompatActivity {
 
@@ -103,11 +109,13 @@ public class GoogleAuthActivity extends AppCompatActivity {
 
                         if(task.isSuccessful()){
                             FirebaseUser user = auth.getCurrentUser();
-                            HashMap<String,Object> map = new HashMap<>();
-                            map.put("id",user.getUid());
-                            map.put("name",user.getDisplayName());
-                            map.put("profile",user.getPhotoUrl().toString());
-                            database.getReference().child("users").child(user.getUid()).setValue(map);
+                            if (user == null) {
+                                HashMap<String,Object> map = new HashMap<>();
+                                map.put("id",user.getUid());
+                                map.put("name",user.getDisplayName());
+                                map.put("profile",user.getPhotoUrl().toString());
+                                database.getReference().child("users").child(user.getUid()).setValue(map);
+                            }
 
                             Intent intent = new Intent(GoogleAuthActivity.this,MainActivity.class);
                             startActivity(intent);
