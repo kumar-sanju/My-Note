@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:id="@+id/viewSupporter"
+        app:layout_constraintTop_toBottomOf="@+id/noteImage"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/cardLayout"
+        android:paddingBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/noteTitle"/>
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:id="@+id/noteImage"
+        android:layout_marginLeft="15dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/icon_notes"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="6dp"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/noteTitle"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/black"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/noteImage"
+        app:layout_constraintTop_toTopOf="@+id/noteImage"/>
+    <TextView
+        android:id="@+id/noteDate"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/noteTitle"
+        app:layout_constraintStart_toStartOf="@+id/noteTitle"
+        app:layout_constraintTop_toBottomOf="@+id/noteTitle" />
+
+    <TextView
+        android:id="@+id/noteDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/noteTitle"
+        app:layout_constraintStart_toStartOf="@+id/noteTitle"
+        app:layout_constraintTop_toBottomOf="@+id/noteDate" />
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:id="@+id/noteEdit"
+        android:layout_marginEnd="20dp"
+        android:visibility="gone"
+        android:background="@drawable/icon_edit"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/cardLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardLayout"/>
+
+    <ImageView
+        android:id="@+id/noteDelete"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="15dp"
+        android:visibility="gone"
+        android:background="@drawable/icon_delete"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/cardLayout"
+        app:layout_constraintEnd_toStartOf="@+id/noteEdit"
+        app:layout_constraintTop_toTopOf="@+id/cardLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

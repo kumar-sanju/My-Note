@@ -52,15 +52,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     FloatingActionButton fab, fabLogout;
     DatabaseReference databaseReference;
     DatabaseReference databaseReferenceUpdate;
     StorageReference storageReference;
     ValueEventListener eventListener;
     RecyclerView recyclerView;
-    List<DataClass> dataList;
-    MyAdapter adapter;
+    List<NoteLists> noteLists;
+    MainAdapter adapter;
     SearchView searchView;
     Uri uri;
     String imageUrl = "", uID;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     Dialog alertDialog;
     private ImageView dialogImageView;
     TextView updateTitle, updateDesc, headingTV;
-    Button updateButton, deleteButton, addButton;
+    Button updateButton, addButton;
     private ProgressDialog progressDialog;
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -95,21 +95,19 @@ public class MainActivity extends AppCompatActivity {
         dialog = builder.create();
         dialog.show();
 
-        dataList = new ArrayList<>();
+        noteLists = new ArrayList<>();
 
         uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("sanju", "onCreate: "+ uID);
-//        adapter = new MyAdapter(MainActivity.this, dataList);
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
-//        databaseReference = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Android Tutorials");
+
         databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("Android Tutorials");
 
-        adapter = new MyAdapter(getApplicationContext(), dataList, new MyAdapter.OnItemClickListener() {
+        adapter = new MainAdapter(getApplicationContext(), noteLists, new MainAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(List<DataClass> dataList, int position) {
+            public void onItemClick(List<NoteLists> dataList, int position) {
                 databaseReferenceUpdate = FirebaseDatabase.getInstance()
                         .getReference()
                         .child("users")
@@ -118,16 +116,30 @@ public class MainActivity extends AppCompatActivity {
 
                 showDialog(dataList, position, "update");
             }
+
+            @Override
+            public void onItemDeleted(List<NoteLists> dataList, int position) {
+                showAlertDialog(dataList, position);
+            }
+
+            @Override
+            public void onTvShowAction(Boolean isSelected) {
+//                if (isSelected){
+//                    buttonAdd.setVisibility(View.VISIBLE);
+//                }else{
+//                    buttonAdd.setVisibility(View.GONE);
+//                }
+            }
         });
 
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
+                noteLists.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()){
-                    DataClass dataClass = itemSnapshot.getValue(DataClass.class);
-                    dataClass.setKey(itemSnapshot.getKey());
-                    dataList.add(dataClass);
+                    NoteLists allNotes = itemSnapshot.getValue(NoteLists.class);
+                    allNotes.setKey(itemSnapshot.getKey());
+                    noteLists.add(allNotes);
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
@@ -155,10 +167,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog(dataList, 0,"add");
-
-//                Intent intent = new Intent(MainActivity.this, UploadActivity.class);
-//                startActivity(intent);
+                showDialog(noteLists, 0,"add");
             }
         });
 
@@ -174,7 +183,52 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showDialog(List<DataClass> dataList, int position, String check) {
+    private void showAlertDialog(List<NoteLists> dataList, int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmation")
+                .setMessage("Are you sure! you want to delete the Note?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // User clicked Yes button
+                    showProgressDialog();
+                    // Handle delete action
+                    final DatabaseReference reference = FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("users")
+                            .child(uID)
+                            .child("Android Tutorials");
+                    if (noteLists.get(position).getDataImage().isEmpty()){
+                        reference.child(MainActivity.this.noteLists.get(position).getKey()).removeValue();
+                        Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
+                        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                reference.child(MainActivity.this.noteLists.get(position).getKey()).removeValue();
+                                Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    adapter.notifyDataSetChanged();
+                    dismissProgressDialog();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    // Handle the No button click
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
+    private void showDialog(List<NoteLists> dataList, int position, String check) {
         alertDialog = new Dialog(this);
         alertDialog.setContentView(R.layout.update_dialog);
 
@@ -194,32 +248,21 @@ public class MainActivity extends AppCompatActivity {
         updateTitle = alertDialog.findViewById(R.id.updateTitle);
         updateDesc = alertDialog.findViewById(R.id.updateDesc);
         updateButton = alertDialog.findViewById(R.id.updateButton);
-        deleteButton = alertDialog.findViewById(R.id.deleteButton);
         addButton = alertDialog.findViewById(R.id.addButton);
         headingTV = alertDialog.findViewById(R.id.headingTV);
         dialogImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                    Intent photoPicker = new Intent(Intent.ACTION_PICK);
-//                    photoPicker.setType("image/*");
-//                    activityResultLauncher.launch(photoPicker);
-
-                // Handle image selection from gallery
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, PICK_IMAGE_REQUEST);
-
-//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, 1);
             }
         });
 
         if (check.equals("add")){
             addButton.setVisibility(View.VISIBLE);
             updateButton.setVisibility(View.GONE);
-            deleteButton.setVisibility(View.GONE);
             headingTV.setText("Add Note");
 
             addButton.setOnClickListener(new View.OnClickListener() {
@@ -246,11 +289,10 @@ public class MainActivity extends AppCompatActivity {
         else {
             addButton.setVisibility(View.GONE);
             updateButton.setVisibility(View.VISIBLE);
-            deleteButton.setVisibility(View.VISIBLE);
             headingTV.setText("Update & Delete Note");
 
             if (dataList.get(position).getDataImage().isEmpty())
-                dialogImageView.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.camera));
+                dialogImageView.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.uploadimg));
             else
                 Glide.with(getApplicationContext()).load(dataList.get(position).getDataImage()).into(dialogImageView);
 
@@ -263,32 +305,6 @@ public class MainActivity extends AppCompatActivity {
                     // Handle edit action
                     saveData(updateTitle.getText().toString().trim(), updateDesc.getText().toString().trim(), dataList.get(position).getDataImage(), dataList.get(position).getKey());
                     adapter.notifyDataSetChanged();
-                    alertDialog.dismiss();
-                }
-            });
-
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showProgressDialog();
-                    // Handle delete action
-                    final DatabaseReference reference = FirebaseDatabase.getInstance()
-                            .getReference()
-                            .child("users")
-                            .child(uID)
-                            .child("Android Tutorials");
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
-                    storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            reference.child(dataList.get(position).getKey()).removeValue();
-                            Toast.makeText(MainActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    adapter.notifyDataSetChanged();
-                    dismissProgressDialog();
                     alertDialog.dismiss();
                 }
             });
@@ -321,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             dismissProgressDialog();
+                            Toast.makeText(MainActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -334,12 +351,12 @@ public class MainActivity extends AppCompatActivity {
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Set the desired time zone
         String dateTime = dateFormat.format(new Date());
 
-        DataClass dataClass;
+        NoteLists noteLists;
 
         if (Objects.equals(imageUrl, ""))
-            dataClass = new DataClass(dataTitle, dataDesc, dateTime, dataImage, randomId);
+            noteLists = new NoteLists(dataTitle, dataDesc, dateTime, dataImage, randomId);
         else
-            dataClass = new DataClass(dataTitle, dataDesc, dateTime, imageUrl, randomId);
+            noteLists = new NoteLists(dataTitle, dataDesc, dateTime, imageUrl, randomId);
 
         //We are changing the child from title to currentDate,
         // because we will be updating title as well and it may affect child value.
@@ -350,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
                 .child(uID)
                 .child("Android Tutorials")
                 .child(randomId)
-                .setValue(dataClass)
+                .setValue(noteLists)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -367,30 +384,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-////        if (result.getResultCode() == Activity.RESULT_OK){
-////            Intent data = result.getData();
-////            uri = data.getData();
-////            updateImage.setImageURI(uri);
-////        } else {
-////            Toast.makeText(MainActivity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-////        }
-//
-//        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-//            uri = data.getData();
-////            updateImage.setImageURI(uri);
-//            dialogImageView.setImageURI(uri);
-//            // Update imageView with the selected image URI
-//            // imageView.setImageURI(selectedImage);
-//        }
-//        else {
-//            Toast.makeText(MainActivity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+        imageUrl = "";
+        uri = null;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -425,8 +422,6 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    // Handle progress dialog dismissal if needed
-//                    Toast.makeText(MainActivity.this, "Progress Dialog Dismissed", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -456,7 +451,6 @@ public class MainActivity extends AppCompatActivity {
                     Uri urlImage = uriTask.getResult();
                     imageUrl = urlImage.toString();
                     updateData(dataTitle, dataDesc, dataImage, imageUrl, key);
-//                dialog.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -471,14 +465,14 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); // Set the desired time zone
         String dateTime = dateFormat.format(new Date());
-        DataClass dataClass;
+        NoteLists noteLists;
 
         if (Objects.equals(imageUrl, ""))
-            dataClass = new DataClass(dataTitle, dataDesc, dateTime, dataImage, key);
+            noteLists = new NoteLists(dataTitle, dataDesc, dateTime, dataImage, key);
         else
-            dataClass = new DataClass(dataTitle, dataDesc, dateTime, imageUrl, key);
+            noteLists = new NoteLists(dataTitle, dataDesc, dateTime, imageUrl, key);
 
-        databaseReferenceUpdate.setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReferenceUpdate.setValue(noteLists).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
@@ -503,10 +497,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void searchList(String text){
-        ArrayList<DataClass> searchList = new ArrayList<>();
-        for (DataClass dataClass: dataList){
-            if (dataClass.getDataTitle().toLowerCase().contains(text.toLowerCase())){
-                searchList.add(dataClass);
+        ArrayList<NoteLists> searchList = new ArrayList<>();
+        for (NoteLists noteLists : noteLists){
+            if (noteLists.getDataTitle().toLowerCase().contains(text.toLowerCase())){
+                searchList.add(noteLists);
             }
         }
         adapter.searchDataList(searchList);

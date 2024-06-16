@@ -61,4 +61,6 @@ dependencies {
     // Fab icon
     implementation("com.github.clans:fab:1.6.4")
 
+    implementation("com.makeramen:roundedimageview:2.3.0")
+
 }

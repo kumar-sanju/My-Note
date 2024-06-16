@@ -46,14 +46,14 @@
         android:hint="Enter description"
         android:gravity="start"
         android:textColor="@color/black"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_margin="5dp"
-        android:id="@+id/deleteButton"
-        android:textSize="10dp"
-        app:cornerRadius = "10dp"/>
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Delete"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:id="@+id/deleteButton"-->
+<!--        android:textSize="10dp"-->
+<!--        app:cornerRadius = "10dp"/>-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

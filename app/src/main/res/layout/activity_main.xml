@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.SearchView
@@ -18,8 +19,8 @@
         app:queryHint="Search..."
         android:focusable="false"
         android:layout_toLeftOf="@+id/fabLogout"
-        app:closeIcon="@drawable/clear"
-        app:searchIcon="@drawable/searchone"
+        app:closeIcon="@drawable/icon_cross"
+        app:searchIcon="@drawable/icon_search"
         android:background="@drawable/lavender_border"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,10 +1,11 @@
 package com.smart.mynote;
-public class DataClass {
+public class NoteLists {
     private String dataTitle = "";
     private String dataDesc = "";
     private String dataLang = "";
     private String dataImage = "";
     private String key = "";
+    Boolean isSelected=false;
 
     public String getKey() {
         return key;
@@ -25,14 +26,14 @@ public class DataClass {
         return dataImage;
     }
 
-    public DataClass(String dataTitle, String dataDesc, String dataLang, String dataImage) {
+    public NoteLists(String dataTitle, String dataDesc, String dataLang, String dataImage) {
         this.dataTitle = dataTitle;
         this.dataDesc = dataDesc;
         this.dataLang = dataLang;
         this.dataImage = dataImage;
     }
 
-    public DataClass(String dataTitle, String dataDesc, String dataLang, String dataImage, String key) {
+    public NoteLists(String dataTitle, String dataDesc, String dataLang, String dataImage, String key) {
         this.dataTitle = dataTitle;
         this.dataDesc = dataDesc;
         this.dataLang = dataLang;
@@ -40,6 +41,6 @@ public class DataClass {
         this.key = key;
     }
 
-    public DataClass(){
+    public NoteLists(){
     }
 }
