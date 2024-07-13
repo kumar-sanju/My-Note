@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Image With Text"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:background="@color/light"
+        android:textColor="@color/black"/>
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/uploadimg"
+        android:id="@+id/imageAdd"
+        android:background="@drawable/selected_background"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:scaleType="centerCrop"/>
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon_text"
+        android:padding="25dp"
+        android:background="@drawable/selected_background"
+        android:id="@+id/textAdd"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Only Text"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:background="@color/light"
+        android:textColor="@color/black"/>
+</LinearLayout>
