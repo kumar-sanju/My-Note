@@ -1,14 +1,11 @@
 <resources>
-    <string name="app_name">My Note</string>
+    <string name="app_name">Quick Note</string>
     <string name="default_web_client_ids">371382856688-94h0b7l243idp5o4bjonlkph0s4j8l46.apps.googleusercontent.com</string>
-    <string name="screen1">Upload a Video</string>
-    <string name="screen2">Create a Short</string>
-    <string name="screen3">Go Live</string>
-    <string name="screen1desc">Record a new video or select a video you already have on your phone.
-        Watch YouTube Videos for Free</string>
-    <string name="screen2desc">Create, edit, and upload your own short videos.
-        All you need is an idea and a phone to record and share Shorts. </string>
-    <string name="screen3desc">YouTube live streaming allows you to reach your community in real time.
-    Go live on YouTube from webcam, mobile and encoder streaming.</string>
-    <string name="startDesc">Welcome to My Note. The world of keep your note safe and secure. You can add, update and delete at any time.</string>
+    <string name="screen1">Well Come to Quick Note !</string>
+    <string name="screen2">Edit and Customize </string>
+    <string name="screen3">Access Anytime, Anywhere </string>
+    <string name="screen1desc"> our ultimate tool for organizing and managing your notes and tasks effortlessly.         </string>
+    <string name="screen2desc"> Personalize your notes with various formatting options and make them your own.              </string>
+    <string name="screen3desc"> Your notes are always with you, whether you are on your phone, tablet, or computer. </string>
+    <string name="startDesc">Welcome to Quick Note. The world of keep your note safe and secure. You can add, update and delete at any time.</string>
 </resources>
