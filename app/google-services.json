@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "371382856688",
+    "firebase_url": "https://my-note-a368d-default-rtdb.firebaseio.com",
     "project_id": "my-note-a368d",
     "storage_bucket": "my-note-a368d.appspot.com"
   },
@@ -12,7 +13,36 @@
           "package_name": "com.smart.mynote"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "371382856688-df8roua2vt5me27l1lvurvdt79jrnlu9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smart.mynote",
+            "certificate_hash": "7e0a6a2771ef395f3d7e61901a691b01f89bb529"
+          }
+        },
+        {
+          "client_id": "371382856688-gnf7t4qatjiqea8pku8tu6j7mtm86of1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smart.mynote",
+            "certificate_hash": "96d96b6fcfbd65ad110c3ed1b13e9215dfae605d"
+          }
+        },
+        {
+          "client_id": "371382856688-rp9e0fcpvd9re6h5qubar7gmjdvjo7da.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smart.mynote",
+            "certificate_hash": "193ad4bca75c7a1b28187a4e4d2c141cc48861ba"
+          }
+        },
+        {
+          "client_id": "371382856688-94h0b7l243idp5o4bjonlkph0s4j8l46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBeBFkFmUz3-XPkrBgEu_pX3pPXhBSmbgw"
@@ -20,7 +50,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371382856688-94h0b7l243idp5o4bjonlkph0s4j8l46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371382856688:android:28d10474ed4e293eeb0b35",
+        "android_client_info": {
+          "package_name": "com.smart.quicknote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371382856688-94h0b7l243idp5o4bjonlkph0s4j8l46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeBFkFmUz3-XPkrBgEu_pX3pPXhBSmbgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371382856688-94h0b7l243idp5o4bjonlkph0s4j8l46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

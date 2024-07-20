@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.smart.mynote"
+    namespace = "com.smart.quicknote"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.smart.mynote"
+        applicationId = "com.smart.quicknote"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
